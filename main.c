@@ -290,6 +290,7 @@ int main(){
          start++;
       }     
    }
+   putchar('\n');
 }
 
 
