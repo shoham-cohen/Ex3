@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 
 #define WORD 30
-#define TXT 1024
+#define TXTT 1024
 
 int main(){
    char initialword[WORD];
-   int wordLength = 0;
+   int wordLength = 0;  
    scanf("%s", initialword);
    //count the letters in the word//
    for(int i = 0; i < WORD; i++){
@@ -25,13 +26,18 @@ int main(){
       word[i] = initialword[i];
    }
    //fill the txt array with 0 before collecting the txt//
-   char txt[TXT];
-   for(int i = 0; i < TXT; i++){
-      txt[i] = 0;
+   char text[TXTT];
+   for(int i = 0; i < TXTT; i++){
+      text[i] = 0;
    }
    //collect the txt//
-   scanf("%[^~]s", txt);
+   scanf("%[^~]s", text);
    //calculate the gemetric value of the word//
+   int txtlen = strlen(text);
+   char txt[txtlen];
+   for(int i = 0; i < txtlen; i++){
+      txt[i] = text[i];
+   }
    int value = 0;
    for (int i = 0; i < wordLength; i++){ 
       if (word[i] >= 'A' && word[i] <= 'Z'){
@@ -47,71 +53,79 @@ int main(){
    int currValue = 0;
    int i = 0;
    int firstPrint = 0;
-   while(start < TXT){
-      if (txt[i] >= 'A' && txt[i] <= 'Z'){
-         if (currValue + txt[i] - 'A' + 1 < value){
-           if(currValue == 0){
-              start = i;
-              currValue += txt[i] - 'A' + 1;
-              i++;
-           }
-           else{
-              currValue += txt[i] - 'A' + 1;
-              i++;
-           }
+   while(start < txtlen){
+      if(i < txtlen){
+         if(start == 104){
+            int x = 13;
          }
-         else if(currValue + txt[i] - 'A' + 1 > value){
-            currValue = 0;
-            start++;
-            i = start;
-         }
-         else if(currValue + txt[i] - 'A' + 1 == value){
-            if(firstPrint == 1){
-               printf("~");
+         if (txt[i] >= 'A' && txt[i] <= 'Z'){
+            if (currValue + txt[i] - 'A' + 1 < value){
+               if(currValue == 0){
+                  start = i;
+                  currValue += txt[i] - 'A' + 1;
+                  i++;
+               }
+               else{
+                  currValue += txt[i] - 'A' + 1;
+                  i++;
+               }
             }
-            for(int j = start; j <= i; j++){
-              printf("%c", txt[j]);
+            else if(currValue + txt[i] - 'A' + 1 > value){
+               currValue = 0;
+               start++;
+               i = start;
             }
-            start++;
-            i = start;
-            currValue = 0; 
-            firstPrint = 1;
+            else if(currValue + txt[i] - 'A' + 1 == value){
+               if(firstPrint == 1){
+                  printf("~");
+               }
+               for(int j = start; j <= i; j++){
+                 printf("%c", txt[j]);
+               }
+               start++;
+               i = start;
+               currValue = 0; 
+               firstPrint = 1;
+            } 
          }
-      }
-      else if (txt[i] >= 'a' && txt[i] <= 'z'){
-         if (currValue + txt[i] - 'a' + 1 < value){
-           if(currValue == 0){
-              start = i;
-              currValue += txt[i] - 'a' + 1;
-              i++;
-           }
-           else{
-              currValue += txt[i] - 'a' + 1;
-              i++;
-           }
-         }
-         else if(currValue + txt[i] - 'a' + 1 > value){
-            currValue = 0;
-            start++;
-            i = start;
-         }
-         else if(currValue + txt[i] - 'a' + 1 == value){
-            if(firstPrint == 1){
-               printf("~");
+         else if (txt[i] >= 'a' && txt[i] <= 'z'){
+            if (currValue + txt[i] - 'a' + 1 < value){
+              if(currValue == 0){
+                 start = i;
+                 currValue += txt[i] - 'a' + 1;
+                 i++;
+              }
+              else{
+                 currValue += txt[i] - 'a' + 1;
+                 i++;
+              }
             }
-            for(int j = start; j <= i; j++){
-              printf("%c", txt[j]);
+            else if(currValue + txt[i] - 'a' + 1 > value){
+               currValue = 0;
+               start++;
+               i = start;
             }
-            start++;
-            i = start;
-            currValue = 0;
-            firstPrint = 1; 
+            else if(currValue + txt[i] - 'a' + 1 == value){
+               if(firstPrint == 1){
+                  printf("~");
+               }
+               for(int j = start; j <= i; j++){
+                  printf("%c", txt[j]);
+               }
+               start++;
+               i = start;
+               currValue = 0;
+               firstPrint = 1; 
+            }
+         }
+         else{
+            i++;
          }
       }
       else{
-        i++;
+         start++;
       }
-   }
+      }
    putchar('\n');
    start = 0;
    printf("Atbash Sequences: ");
@@ -121,11 +135,11 @@ int main(){
    for(int j = 0; j < wordLength; j++){
       reverse[j] = word[wordLength - j - 1];
    }
-   while(start < TXT){
+   while(start < txtlen){
       if(txt[start] + word[0] == 155 || txt[start] + word[0] == 219){
          wordIndex = 1;
          for(i = 1; wordIndex < wordLength; i++){
-            if(start + i > TXT){
+            if(start + i > txtlen){
                start += start + i;
                break;
             }
@@ -166,7 +180,7 @@ int main(){
       else if(txt[start] + reverse[0] == 155 || txt[start] + reverse[0] == 219){
          wordIndex = 1;
          for(i = 1; wordIndex < wordLength; i++){
-            if(start + i > TXT){
+            if(start + i > txtlen){
                start += start + i;
                break;
             }
@@ -220,7 +234,7 @@ int main(){
    int finish = 0;
    firstPrint = 0;
    printf("Anagram Sequences: ");
-   while (start < TXT){
+   while (start < txtlen){
       for(int j = 0; j < wordLength; j++){
          if(txt[start] == word[j]){
             arr[j] = 1;
@@ -232,7 +246,7 @@ int main(){
          i = start + 1;
          while(flag == 1){
             entered = 0;
-            if(txt[i] == txt[start]){ ////////
+            if(txt[i] == txt[start]){ 
                start++;
                entered = 1;
                flag = 0;
@@ -291,10 +305,7 @@ int main(){
       }     
    }
    putchar('\n');
+   memset(word, 0, wordLength);
+   memset(txt, 0, TXTT);
    return 0;
 }
-
-
-
-
-
