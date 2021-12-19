@@ -55,9 +55,6 @@ int main(){
    int firstPrint = 0;
    while(start < txtlen){
       if(i < txtlen){
-         if(start == 104){
-            int x = 13;
-         }
          if (txt[i] >= 'A' && txt[i] <= 'Z'){
             if (currValue + txt[i] - 'A' + 1 < value){
                if(currValue == 0){
