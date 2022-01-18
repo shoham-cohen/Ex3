@@ -301,7 +301,7 @@ int main(){
          start++;
       }     
    }
-   putchar('\n');
+   //putchar('\n');
    memset(word, 0, wordLength);
    memset(txt, 0, TXTT);
    return 0;
